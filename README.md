@@ -11,6 +11,12 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+- Swift 4.2
+- RxSwift (~> 4.0)
+- RxCocoa (~> 4.0)
+- Differentiator (~> 3.0)
+- Texture (2.7)
+
 ## Installation
 
 RxDataSources-Texture is available through [CocoaPods](https://cocoapods.org). To install

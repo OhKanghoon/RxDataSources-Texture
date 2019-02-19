@@ -1,5 +1,5 @@
 import XCTest
-import RxDataSources-Texture
+import RxDataSources_Texture
 
 class Tests: XCTestCase {
     
