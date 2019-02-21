@@ -2,7 +2,7 @@
 //  UI+SectionNodeType.swift
 //  RxTextureDataSources
 //
-//  Created by Kanghoon on 2018. 12. 18..
+//  Created by Kanghoon on 19/02/2019.
 //
 
 #if os(iOS) || os(tvOS)
@@ -60,6 +60,48 @@ extension ASTableNode: SectionedNodeType {
         self.performBatch(animated: true, updates: {
             _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
         }, completion: nil)
+    }
+}
+
+extension ASCollectionNode: SectionedNodeType {
+    
+    public func insertItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableViewRowAnimation) {
+        self.insertItems(at: paths)
+    }
+    
+    public func deleteItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableViewRowAnimation) {
+        self.deleteItems(at: paths)
+    }
+    
+    public func moveItemAtIndexPath(_ from: IndexPath, to: IndexPath) {
+        self.moveItem(at: from, to: to)
+    }
+    
+    public func reloadItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableViewRowAnimation) {
+        self.reloadItems(at: paths)
+    }
+    
+    public func insertSections(_ sections: [Int], animationStyle: UITableViewRowAnimation) {
+        self.insertSections(indexSet(sections))
+    }
+    
+    public func deleteSections(_ sections: [Int], animationStyle: UITableViewRowAnimation) {
+        self.deleteSections(indexSet(sections))
+    }
+    
+    public func moveSection(_ from: Int, to: Int) {
+        self.moveSection(from, toSection: to)
+    }
+    
+    public func reloadSections(_ sections: [Int], animationStyle: UITableViewRowAnimation) {
+        self.reloadSections(indexSet(sections))
+    }
+    
+    public func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
+        self.performBatchUpdates({ () -> Void in
+            _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
+        }, completion: { (completed: Bool) -> Void in
+        })
     }
 }
 
