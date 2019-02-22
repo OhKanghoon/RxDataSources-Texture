@@ -6,16 +6,16 @@
 [![Platform](https://img.shields.io/cocoapods/p/RxDataSources-Texture.svg?style=flat)](https://cocoapods.org/pods/RxDataSources-Texture)
 
 ## Example
-
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+- [RxDataSources Example](https://github.com/OhKanghoon/RxDataSources-Texture/tree/master/Example)
 
 ## Requirements
 
 - Swift 4.2
-- RxSwift (~> 4.0)
-- RxCocoa (~> 4.0)
+- [RxSwift](https://github.com/ReactiveX/RxSwift) (~> 4.0)
+- [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/master/RxCocoa) (~> 4.0)
 - Differentiator (~> 3.0)
-- Texture (2.7)
+- [Texture](https://github.com/TextureGroup/Texture) (~> 2.7)
 
 ## Installation
 
