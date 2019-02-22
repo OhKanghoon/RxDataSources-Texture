@@ -14,7 +14,7 @@ import RxCocoa
 #endif
 import Differentiator
 
-open class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>
+open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
     : ASTableSectionedDataSource<S>
     , RxASTableDataSourceType {
     
@@ -26,8 +26,6 @@ open class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>
     
     /// Calculates view transition depending on type of changes
     public var decideNodeTransition: DecideNodeTransition
-    
-    public var animated: Bool = true
     private var dataSet = false
     
     #if os(iOS)

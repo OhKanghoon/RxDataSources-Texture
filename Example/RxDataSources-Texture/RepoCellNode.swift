@@ -16,6 +16,11 @@ final class RepoCellNode: ASCellNode {
         static let spacing: CGFloat = 8
     }
     
+    enum ViewType {
+        case table
+        case collection
+    }
+    
     lazy var imageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
         node.style.preferredSize = Const.imageSize
@@ -29,17 +34,28 @@ final class RepoCellNode: ASCellNode {
         return node
     }()
     
-    init(repo: Repo) {
+    let type: ViewType
+    
+    init(_ type: ViewType, repo: Repo) {
+        self.type = type
         super.init()
         self.automaticallyManagesSubnodes = true
         self.backgroundColor = .white
         self.selectionStyle = .none
+        
+        switch type {
+        case .collection:
+            self.style.preferredSize = .init(width: 150,
+                                             height: 60)
+        default: break
+        }
         
         imageNode.setURL(URL(string: repo.owner.avatarURL), resetToDefault: true)
         titleNode.attributedText = NSAttributedString(string: repo.fullName,
                                                       attributes: [.font: UIFont.systemFont(ofSize: 13),
                                                                    .foregroundColor: UIColor.black])
     }
+    
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let contentStackSpec = ASStackLayoutSpec(direction: .horizontal,

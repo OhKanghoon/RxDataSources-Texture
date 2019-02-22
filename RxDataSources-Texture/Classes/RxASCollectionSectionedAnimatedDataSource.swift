@@ -43,6 +43,17 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             moveItem: moveItem,
             canMoveItemWith: canMoveItemWith
         )
+        
+        self.partialUpdateEvent
+            // so in case it does produce a crash, it will be after the data has changed
+            .observeOn(MainScheduler.asyncInstance)
+            // Collection Node has issues digesting fast updates, this should
+            // help to alleviate the issues with them.
+            .throttle(0.5, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] event in
+                self?.collectionNode(event.0, throttledObservedEvent: event.1)
+            })
+            .disposed(by: disposeBag)
     }
     
     // For some inexplicable reason, when doing animated updates first time

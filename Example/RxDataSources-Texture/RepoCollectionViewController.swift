@@ -1,8 +1,8 @@
 //
-//  RepoViewController.swift
+//  RepoCollectionViewController.swift
 //  RxDataSources-Texture_Example
 //
-//  Created by Kanghoon on 19/02/2019.
+//  Created by Kanghoon on 22/02/2019.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
@@ -14,23 +14,29 @@ import RxCocoa
 import RxOptional
 import SnapKit
 
-class RepoViewController: UIViewController {
+class RepoCollectionViewController: UIViewController {
     
     // MARK: Properties
-    lazy var tableNode = ASTableNode()
     
-    private let animatedDataSource = RxASTableAnimatedDataSource<MainSection>(
+    lazy var collectionNode: ASCollectionNode = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 0
+        return ASCollectionNode(collectionViewLayout: flowLayout)
+    }()
+    
+    private let animatedDataSource = RxASCollectionSectionedAnimatedDataSource<MainSection>(
         configureCell: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(repo: repoItem)
+                return RepoCellNode(.collection, repo: repoItem)
             }
     })
-    private let dataSource = RxASTableSectionedReloadDataSource<MainSection>(
+    private let dataSource = RxASCollectionSectionedReloadDataSource<MainSection>(
         configureCell: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(repo: repoItem)
+                return RepoCellNode(.collection, repo: repoItem)
             }
     })
     
@@ -42,7 +48,7 @@ class RepoViewController: UIViewController {
     init(viewModel: RepoViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        title = "Repositories"
+        title = "Collection DataSources"
         viewModel.refreshRelay.accept(())
     }
     
@@ -59,8 +65,8 @@ class RepoViewController: UIViewController {
     
     // MARK: Set up
     private func setupUI() {
-        self.view.addSubview(tableNode.view)
-        tableNode.view.snp.makeConstraints { make in
+        self.view.addSubview(collectionNode.view)
+        collectionNode.view.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
                 make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                 make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
@@ -70,9 +76,8 @@ class RepoViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
         }
         
-        self.tableNode.onDidLoad({ [weak self] _ in
-            self?.tableNode.view.separatorStyle = .none
-            self?.tableNode.view.alwaysBounceVertical = true
+        self.collectionNode.onDidLoad({ [weak self] _ in
+            self?.collectionNode.view.alwaysBounceVertical = true
         })
     }
     
@@ -81,10 +86,10 @@ class RepoViewController: UIViewController {
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
             })
-            .bind(to: tableNode.rx.items(dataSource: animatedDataSource))
+            .bind(to: collectionNode.rx.items(dataSource: animatedDataSource))
             .disposed(by: disposeBag)
         
-        tableNode.rx.willBeginBatchFetch
+        collectionNode.rx.willBeginBatchFetch
             .subscribe(onNext: { [weak self] batchContext in
                 self?.batchContext = batchContext
                 self?.viewModel.loadMoreRelay.accept(())

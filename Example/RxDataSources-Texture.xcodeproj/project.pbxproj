@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C6380758A08E97CDA239894 /* Pods_RxDataSources_Texture_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1605A61E12940A1AB179816A /* Pods_RxDataSources_Texture_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		BA57B63F221FEB6B00A519C4 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57B63E221FEB6B00A519C4 /* CategoryViewController.swift */; };
+		BA57B641221FEDDE00A519C4 /* RepoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57B640221FEDDE00A519C4 /* RepoCollectionViewController.swift */; };
 		BAEB444D221C012900AAA381 /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB444C221C012900AAA381 /* GithubService.swift */; };
 		BAEB444F221C013600AAA381 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB444E221C013600AAA381 /* Repo.swift */; };
 		BAEB4451221C014700AAA381 /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB4450221C014700AAA381 /* MainSection.swift */; };
-		BAEB4453221C015600AAA381 /* RepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB4452221C015600AAA381 /* RepoViewController.swift */; };
+		BAEB4453221C015600AAA381 /* RepoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB4452221C015600AAA381 /* RepoTableViewController.swift */; };
 		BAEB4455221C018000AAA381 /* RepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB4454221C018000AAA381 /* RepoViewModel.swift */; };
 		BAEB4457221C019700AAA381 /* RepoCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB4456221C019700AAA381 /* RepoCellNode.swift */; };
-		D7242E139CF71A7F865FB75E /* Pods_RxDataSources_Texture_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8117BEBA524FBF28436EFB77 /* Pods_RxDataSources_Texture_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,6 @@
 /* Begin PBXFileReference section */
 		08590A62EE58BC75D632D4E1 /* Pods-RxDataSources-Texture_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Tests/Pods-RxDataSources-Texture_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0E223A0AEAFB95124D210A78 /* Pods-RxDataSources-Texture_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Example/Pods-RxDataSources-Texture_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		1605A61E12940A1AB179816A /* Pods_RxDataSources_Texture_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxDataSources_Texture_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B19B596089E2BC956C012AE /* RxDataSources-Texture.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "RxDataSources-Texture.podspec"; path = "../RxDataSources-Texture.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4D492173E5A4022AF1A8E7C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxDataSources-Texture_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RxDataSources-Texture_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,13 +44,14 @@
 		607FACE51AFB9204008FA782 /* RxDataSources-Texture_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RxDataSources-Texture_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8117BEBA524FBF28436EFB77 /* Pods_RxDataSources_Texture_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxDataSources_Texture_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F3A2CCBCEA5A08153BDEA0 /* Pods-RxDataSources-Texture_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Tests/Pods-RxDataSources-Texture_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A11A99DC7BA9173BD7925E71 /* Pods-RxDataSources-Texture_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Example/Pods-RxDataSources-Texture_Example.release.xcconfig"; sourceTree = "<group>"; };
+		BA57B63E221FEB6B00A519C4 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		BA57B640221FEDDE00A519C4 /* RepoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCollectionViewController.swift; sourceTree = "<group>"; };
 		BAEB444C221C012900AAA381 /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
 		BAEB444E221C013600AAA381 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		BAEB4450221C014700AAA381 /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
-		BAEB4452221C015600AAA381 /* RepoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoViewController.swift; sourceTree = "<group>"; };
+		BAEB4452221C015600AAA381 /* RepoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTableViewController.swift; sourceTree = "<group>"; };
 		BAEB4454221C018000AAA381 /* RepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoViewModel.swift; sourceTree = "<group>"; };
 		BAEB4456221C019700AAA381 /* RepoCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellNode.swift; sourceTree = "<group>"; };
 		BF36F6C6C2769A6452E767EE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -62,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7242E139CF71A7F865FB75E /* Pods_RxDataSources_Texture_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C6380758A08E97CDA239894 /* Pods_RxDataSources_Texture_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +83,6 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				C972F4292C5D67E468602128 /* Pods */,
-				76A6EC9A89F69649BC22208F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,19 +146,12 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		76A6EC9A89F69649BC22208F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8117BEBA524FBF28436EFB77 /* Pods_RxDataSources_Texture_Example.framework */,
-				1605A61E12940A1AB179816A /* Pods_RxDataSources_Texture_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		BAEB4447221C00AB00AAA381 /* Module */ = {
 			isa = PBXGroup;
 			children = (
-				BAEB4452221C015600AAA381 /* RepoViewController.swift */,
+				BA57B63E221FEB6B00A519C4 /* CategoryViewController.swift */,
+				BAEB4452221C015600AAA381 /* RepoTableViewController.swift */,
+				BA57B640221FEDDE00A519C4 /* RepoCollectionViewController.swift */,
 				BAEB4454221C018000AAA381 /* RepoViewModel.swift */,
 				BAEB4456221C019700AAA381 /* RepoCellNode.swift */,
 			);
@@ -404,9 +394,11 @@
 				BAEB4455221C018000AAA381 /* RepoViewModel.swift in Sources */,
 				BAEB4457221C019700AAA381 /* RepoCellNode.swift in Sources */,
 				BAEB444F221C013600AAA381 /* Repo.swift in Sources */,
+				BA57B641221FEDDE00A519C4 /* RepoCollectionViewController.swift in Sources */,
 				BAEB444D221C012900AAA381 /* GithubService.swift in Sources */,
+				BA57B63F221FEB6B00A519C4 /* CategoryViewController.swift in Sources */,
 				BAEB4451221C014700AAA381 /* MainSection.swift in Sources */,
-				BAEB4453221C015600AAA381 /* RepoViewController.swift in Sources */,
+				BAEB4453221C015600AAA381 /* RepoTableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
