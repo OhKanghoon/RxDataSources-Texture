@@ -1,11 +1,29 @@
-# RxDataSources-Texture
+<img src="https://github.com/OhKanghoon/RxDataSources-Texture/blob/master/Resource/logo.png">
 
 [![CI Status](https://img.shields.io/travis/OhKanghoon/RxDataSources-Texture.svg?style=flat)](https://travis-ci.org/OhKanghoon/RxDataSources-Texture)
 [![Version](https://img.shields.io/cocoapods/v/RxDataSources-Texture.svg?style=flat)](https://cocoapods.org/pods/RxDataSources-Texture)
 [![License](https://img.shields.io/cocoapods/l/RxDataSources-Texture.svg?style=flat)](https://cocoapods.org/pods/RxDataSources-Texture)
 [![Platform](https://img.shields.io/cocoapods/p/RxDataSources-Texture.svg?style=flat)](https://cocoapods.org/pods/RxDataSources-Texture)
 
+## Usage
+
+1. Turn your data into an Observable sequence
+2. Bind the data to the tableNode / collectionNode using :
+- rx.items(dataSource:protocol<RxASTableDataSourceType, ASTableDataSource>)
+
+```swift
+let dataSource = RxASTableSectionedReloadDataSource<SectionModel<String, Int>>(configureCell: { (_, _, _, num) -> ASCellNode in
+    let cell = ASTextCellNode()
+    cell.text = "\(num)"
+    return cell
+})
+Observable.just([SectionModel(model: "title", items: [1, 2, 3])])
+    .bind(to: tableNode.rx.items(dataSource: dataSource))
+    .disposed(by: disposeBag)
+```
+
 ## Example
+
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 - [RxDataSources Example](https://github.com/OhKanghoon/RxDataSources-Texture/tree/master/Example)
 
