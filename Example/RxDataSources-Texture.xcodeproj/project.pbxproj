@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		226BA91D65C719AE4C3707E0 /* Pods_RxDataSources_Texture_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADC79825E0781F110D84ADA /* Pods_RxDataSources_Texture_Tests.framework */; };
+		4FF009EAE3C37C362B2723FF /* Pods_RxDataSources_Texture_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE04BE324A466DA05DEC32D /* Pods_RxDataSources_Texture_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -34,6 +36,7 @@
 /* Begin PBXFileReference section */
 		08590A62EE58BC75D632D4E1 /* Pods-RxDataSources-Texture_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Tests/Pods-RxDataSources-Texture_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0E223A0AEAFB95124D210A78 /* Pods-RxDataSources-Texture_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Example/Pods-RxDataSources-Texture_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2ADC79825E0781F110D84ADA /* Pods_RxDataSources_Texture_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxDataSources_Texture_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B19B596089E2BC956C012AE /* RxDataSources-Texture.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "RxDataSources-Texture.podspec"; path = "../RxDataSources-Texture.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4D492173E5A4022AF1A8E7C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxDataSources-Texture_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RxDataSources-Texture_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +47,7 @@
 		607FACE51AFB9204008FA782 /* RxDataSources-Texture_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RxDataSources-Texture_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		6BE04BE324A466DA05DEC32D /* Pods_RxDataSources_Texture_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxDataSources_Texture_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F3A2CCBCEA5A08153BDEA0 /* Pods-RxDataSources-Texture_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Tests/Pods-RxDataSources-Texture_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A11A99DC7BA9173BD7925E71 /* Pods-RxDataSources-Texture_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxDataSources-Texture_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxDataSources-Texture_Example/Pods-RxDataSources-Texture_Example.release.xcconfig"; sourceTree = "<group>"; };
 		BA57B63E221FEB6B00A519C4 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF009EAE3C37C362B2723FF /* Pods_RxDataSources_Texture_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				226BA91D65C719AE4C3707E0 /* Pods_RxDataSources_Texture_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +89,7 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				C972F4292C5D67E468602128 /* Pods */,
+				ABA881C7B3A2807CAD788DC9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +151,15 @@
 				4D492173E5A4022AF1A8E7C8 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		ABA881C7B3A2807CAD788DC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6BE04BE324A466DA05DEC32D /* Pods_RxDataSources_Texture_Example.framework */,
+				2ADC79825E0781F110D84ADA /* Pods_RxDataSources_Texture_Tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BAEB4447221C00AB00AAA381 /* Module */ = {
@@ -478,11 +494,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -524,10 +541,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -543,7 +561,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -558,7 +576,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -579,7 +597,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RxDataSources-Texture_Example.app/RxDataSources-Texture_Example";
 			};
 			name = Debug;
@@ -597,7 +615,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RxDataSources-Texture_Example.app/RxDataSources-Texture_Example";
 			};
 			name = Release;
