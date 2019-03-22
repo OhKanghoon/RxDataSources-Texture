@@ -75,6 +75,20 @@ extension Reactive where Base: ASCollectionNode {
             return RxASCollectionDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
     }
     
+    /**
+     Installs delegate as forwarding delegate on `rx.delegate`.
+     Data source won't be retained.
+     
+     It enables using normal delegate mechanism with reactive delegate mechanism.
+     
+     - parameter delegate: Delegate object
+     - returns: Disposable object that can be used to unbind the delegate.
+     */
+    public func setDelegate(_ delegate: ASCollectionDelegate)
+        -> Disposable {
+            return RxASCollectionDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+    }
+    
     /// Reactive wrapper for `delegate` message `collectionNode(_:didSelectItemAtIndexPath:)`.
     public var itemSelected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didSelectItemAt:)))
