@@ -85,6 +85,20 @@ extension Reactive where Base: ASTableNode {
             return RxASTableDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
     }
     
+    /**
+     Installs delegate as forwarding delegate on `rx.delegate`.
+     Data source won't be retained.
+     
+     It enables using normal delegate mechanism with reactive delegate mechanism.
+     
+     - parameter delegate: Delegate object
+     - returns: Disposable object that can be used to unbind the delegate.
+     */
+    public func setDelegate(_ delegate: ASTableDelegate)
+        -> Disposable {
+            return RxASTableDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+    }
+    
     // events
     
     /**
