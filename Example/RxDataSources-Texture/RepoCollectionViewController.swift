@@ -12,17 +12,16 @@ import RxDataSources_Texture
 import RxSwift
 import RxCocoa
 import RxOptional
-import SnapKit
 
-class RepoCollectionViewController: UIViewController {
+class RepoCollectionViewController: ASViewController<ASCollectionNode> {
     
     // MARK: Properties
     
-    lazy var collectionNode: ASCollectionNode = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 0
-        return ASCollectionNode(collectionViewLayout: flowLayout)
+    var flowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        return layout
     }()
     
     private let animatedDataSource = RxASCollectionSectionedAnimatedDataSource<MainSection>(
@@ -47,7 +46,10 @@ class RepoCollectionViewController: UIViewController {
     // MARK: Initialize
     init(viewModel: RepoViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
+        self.node.onDidLoad({ [weak self] _ in
+            self?.node.view.alwaysBounceVertical = true
+        })
         title = "Collection DataSources"
         viewModel.refreshRelay.accept(())
     }
@@ -59,26 +61,7 @@ class RepoCollectionViewController: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         bindViewModel()
-    }
-    
-    // MARK: Set up
-    private func setupUI() {
-        self.view.addSubview(collectionNode.view)
-        collectionNode.view.snp.makeConstraints { make in
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-            } else {
-                make.top.bottom.equalToSuperview()
-            }
-            make.leading.trailing.equalToSuperview()
-        }
-        
-        self.collectionNode.onDidLoad({ [weak self] _ in
-            self?.collectionNode.view.alwaysBounceVertical = true
-        })
     }
     
     private func bindViewModel() {
@@ -86,10 +69,10 @@ class RepoCollectionViewController: UIViewController {
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
             })
-            .bind(to: collectionNode.rx.items(dataSource: animatedDataSource))
+            .bind(to: node.rx.items(dataSource: animatedDataSource))
             .disposed(by: disposeBag)
         
-        collectionNode.rx.willBeginBatchFetch
+        node.rx.willBeginBatchFetch
             .subscribe(onNext: { [weak self] batchContext in
                 self?.batchContext = batchContext
                 self?.viewModel.loadMoreRelay.accept(())
