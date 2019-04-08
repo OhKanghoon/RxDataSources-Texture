@@ -11,9 +11,8 @@ import AsyncDisplayKit
 import RxSwift
 import RxCocoa
 import RxOptional
-import SnapKit
 
-final class CategoryViewController: UIViewController {
+final class CategoryViewController: ASViewController<ASTableNode> {
     
     enum Item: Int, CaseIterable {
         case table
@@ -27,42 +26,19 @@ final class CategoryViewController: UIViewController {
         }
     }
     
-    // MARK: Properties
-    lazy var tableNode = ASTableNode()
-    
     // MARK: Initialization
     init() {
-        super.init(nibName: nil, bundle: nil)
+        super.init(node: ASTableNode())
+        node.delegate = self
+        node.dataSource = self
+        self.node.onDidLoad({ [weak self] _ in
+            self?.node.view.alwaysBounceVertical = true
+        })
         title = "Categories"
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupUI()
-    }
-    
-    // MARK: Set up
-    private func setupUI() {
-        self.view.addSubview(tableNode.view)
-        tableNode.view.snp.makeConstraints { make in
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-            } else {
-                make.top.bottom.equalToSuperview()
-            }
-            make.leading.trailing.equalToSuperview()
-        }
-        tableNode.delegate = self
-        tableNode.dataSource = self
-        self.tableNode.onDidLoad({ [weak self] _ in
-            self?.tableNode.view.alwaysBounceVertical = true
-        })
     }
 }
 

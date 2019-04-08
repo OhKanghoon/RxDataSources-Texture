@@ -6,7 +6,6 @@ target 'RxDataSources-Texture_Example' do
   pod 'RxOptional'
   pod 'Alamofire'
   pod 'RxAlamofire'
-  pod 'SnapKit'
 
   target 'RxDataSources-Texture_Tests' do
     inherit! :search_paths

@@ -34,7 +34,6 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
-  - SnapKit (4.2.0)
   - Texture (2.7):
     - Texture/PINRemoteImage (= 2.7)
   - Texture/Core (2.7)
@@ -48,7 +47,6 @@ DEPENDENCIES:
   - RxAlamofire
   - RxDataSources-Texture (from `../`)
   - RxOptional
-  - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -62,7 +60,6 @@ SPEC REPOS:
     - RxCocoa
     - RxOptional
     - RxSwift
-    - SnapKit
     - Texture
 
 EXTERNAL SOURCES:
@@ -81,9 +78,8 @@ SPEC CHECKSUMS:
   RxDataSources-Texture: f4bcbba0c78212e38ca77714665efe44067b5189
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: e572055948acee84618b7e6889d98beacf0b1b25
+PODFILE CHECKSUM: 55960a52eca44401f7df8ec6524ef7d4a4d70186
 
 COCOAPODS: 1.5.3
