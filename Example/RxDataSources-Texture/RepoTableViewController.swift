@@ -73,4 +73,3 @@ class RepoTableViewController: ASViewController<ASTableNode> {
             }).disposed(by: disposeBag)
     }
 }
-
