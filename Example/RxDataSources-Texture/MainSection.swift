@@ -7,7 +7,6 @@
 //
 
 import RxDataSources_Texture
-import Differentiator
 
 enum MainSection {
     case repo(repos: [MainSectionItem])

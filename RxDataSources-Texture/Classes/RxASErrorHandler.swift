@@ -8,6 +8,8 @@
 import Foundation
 import RxCocoa
 
+@_exported import Differentiator
+
 // MARK: Error binding policies
 
 func bindingError(_ error: Swift.Error) {
