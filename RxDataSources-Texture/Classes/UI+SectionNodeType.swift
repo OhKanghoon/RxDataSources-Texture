@@ -57,7 +57,7 @@ extension ASTableNode: SectionedNodeType {
     }
     
     public func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
-        self.performBatch(animated: true, updates: {
+        self.performBatch(animated: animationConfiguration.animated, updates: {
             _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
         }, completion: nil)
     }
@@ -98,10 +98,9 @@ extension ASCollectionNode: SectionedNodeType {
     }
     
     public func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
-        self.performBatchUpdates({ () -> Void in
+        self.performBatch(animated: animationConfiguration.animated, updates: {
             _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
-        }, completion: { (completed: Bool) -> Void in
-        })
+        }, completion: nil)
     }
 }
 
