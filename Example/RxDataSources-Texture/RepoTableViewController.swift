@@ -13,7 +13,9 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class RepoTableViewController: ASViewController<ASTableNode> {
+class RepoTableViewController: ASViewController<ASDisplayNode> {
+    
+    // MARK: - Properties
     
     private let animatedDataSource = RxASTableSectionedAnimatedDataSource<MainSection>(
         configureCellBlock: { _, _, _, sectionItem in
@@ -22,6 +24,7 @@ class RepoTableViewController: ASViewController<ASTableNode> {
                 return { RepoCellNode(.table, repo: repoItem) }
             }
     })
+    
     private let dataSource = RxASTableSectionedReloadDataSource<MainSection>(
         configureCellBlock: { _, _, _, sectionItem in
             switch sectionItem {
@@ -30,21 +33,32 @@ class RepoTableViewController: ASViewController<ASTableNode> {
             }
     })
     
+    lazy var tableNode: ASTableNode = {
+        let node = ASTableNode()
+        node.onDidLoad({ [weak self] _ in
+            self?.tableNode.view.separatorStyle = .none
+            self?.tableNode.view.alwaysBounceVertical = true
+        })
+        return node
+    }()
+    
     var batchContext: ASBatchContext?
     let viewModel: RepoViewModel
     let disposeBag = DisposeBag()
     
-    // MARK: Initialize
+    // MARK: - Initialization
+    
     init(viewModel: RepoViewModel) {
         self.viewModel = viewModel
-        super.init(node: ASTableNode())
-        
-        self.node.onDidLoad({ [weak self] _ in
-            self?.node.view.separatorStyle = .none
-            self?.node.view.alwaysBounceVertical = true
-        })
+        super.init(node: ASDisplayNode())
+        self.node.automaticallyManagesSubnodes = true
+        self.node.automaticallyRelayoutOnSafeAreaChanges = true
+        self.node.layoutSpecBlock = { [weak self] (_, sizeRange) -> ASLayoutSpec in
+            return self?.layoutSpecThatFits(sizeRange) ?? ASLayoutSpec()
+        }
         
         title = "Table DataSources"
+        bindViewModel()
         viewModel.refreshRelay.accept(())
     }
     
@@ -52,24 +66,38 @@ class RepoTableViewController: ASViewController<ASTableNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bindViewModel()
-    }
+    // MARK: - Binding
     
     private func bindViewModel() {
+        tableNode.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
         viewModel.sections
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
             })
-            .bind(to: node.rx.items(dataSource: animatedDataSource))
+            .bind(to: tableNode.rx.items(dataSource: animatedDataSource))
             .disposed(by: disposeBag)
         
-        node.rx.willBeginBatchFetch
-            .subscribe(onNext: { [weak self] batchContext in
-                self?.batchContext = batchContext
-                self?.viewModel.loadMoreRelay.accept(())
-            }).disposed(by: disposeBag)
+        tableNode.rx.willBeginBatchFetch
+            .asObservable()
+            .do(onNext: { [weak self] context in
+                self?.batchContext = context
+            }).map { _ in return }
+            .bind(to: viewModel.loadMoreRelay)
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - LayoutSpec
+    
+    func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        return ASInsetLayoutSpec(insets: node.safeAreaInsets, child: tableNode)
+    }
+}
+
+extension RepoTableViewController: ASTableDelegate {
+    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        return self.viewModel.since.value != nil
     }
 }

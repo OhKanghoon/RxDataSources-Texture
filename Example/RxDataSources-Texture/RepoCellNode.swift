@@ -37,6 +37,7 @@ final class RepoCellNode: ASCellNode {
     
     lazy var titleNode: ASTextNode = {
         let node = ASTextNode()
+        node.maximumNumberOfLines = 2
         node.style.flexShrink = 1.0
         return node
     }()
@@ -49,13 +50,6 @@ final class RepoCellNode: ASCellNode {
         self.automaticallyManagesSubnodes = true
         self.backgroundColor = .white
         self.selectionStyle = .none
-        
-        switch type {
-        case .collection:
-            self.style.preferredSize = .init(width: 150,
-                                             height: 60)
-        default: break
-        }
         
         imageNode.setURL(URL(string: repo.owner.avatarURL), resetToDefault: true)
         titleNode.attributedText = NSAttributedString(string: repo.fullName,
@@ -71,6 +65,13 @@ final class RepoCellNode: ASCellNode {
                                                  alignItems: .center,
                                                  children: [imageNode,
                                                             titleNode])
+        switch type {
+        case .collection:
+            contentStackSpec.style.width = ASDimension.init(unit: .points,
+                                                            value: constrainedSize.max.width / 2 - 1)
+        default: break
+        }
+        
         return ASInsetLayoutSpec(insets: .zero, child: contentStackSpec)
     }
 }

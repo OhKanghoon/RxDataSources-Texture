@@ -13,15 +13,24 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class RepoCollectionViewController: ASViewController<ASCollectionNode> {
+class RepoCollectionViewController: ASViewController<ASDisplayNode> {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     var flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         return layout
+    }()
+    
+    lazy var collectionNode: ASCollectionNode = {
+        let node = ASCollectionNode(collectionViewLayout: flowLayout)
+        self.node.onDidLoad({ [weak self] _ in
+            self?.collectionNode.view.alwaysBounceVertical = true
+        })
+        return node
     }()
     
     private let animatedDataSource = RxASCollectionSectionedAnimatedDataSource<MainSection>(
@@ -43,14 +52,19 @@ class RepoCollectionViewController: ASViewController<ASCollectionNode> {
     let viewModel: RepoViewModel
     let disposeBag = DisposeBag()
     
-    // MARK: Initialize
+    // MARK: Initialization
+    
     init(viewModel: RepoViewModel) {
         self.viewModel = viewModel
-        super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
-        self.node.onDidLoad({ [weak self] _ in
-            self?.node.view.alwaysBounceVertical = true
-        })
+        super.init(node: ASDisplayNode())
+        self.node.automaticallyManagesSubnodes = true
+        self.node.automaticallyRelayoutOnSafeAreaChanges = true
+        self.node.layoutSpecBlock = { [weak self] (_, sizeRange) -> ASLayoutSpec in
+            return self?.layoutSpecThatFits(sizeRange) ?? ASLayoutSpec()
+        }
+        
         title = "Collection DataSources"
+        bindViewModel()
         viewModel.refreshRelay.accept(())
     }
     
@@ -58,25 +72,38 @@ class RepoCollectionViewController: ASViewController<ASCollectionNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bindViewModel()
-    }
+    // MARK: - Binding
     
     private func bindViewModel() {
+        collectionNode.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
         viewModel.sections
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
             })
-            .bind(to: node.rx.items(dataSource: animatedDataSource))
+            .bind(to: collectionNode.rx.items(dataSource: animatedDataSource))
             .disposed(by: disposeBag)
         
-        node.rx.willBeginBatchFetch
-            .subscribe(onNext: { [weak self] batchContext in
-                self?.batchContext = batchContext
-                self?.viewModel.loadMoreRelay.accept(())
-            }).disposed(by: disposeBag)
+        collectionNode.rx.willBeginBatchFetch
+            .asObservable()
+            .do(onNext: { [weak self] context in
+                self?.batchContext = context
+            }).map { _ in return }
+            .bind(to: viewModel.loadMoreRelay)
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - LayoutSpec
+    
+    func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        return ASInsetLayoutSpec(insets: node.safeAreaInsets, child: collectionNode)
     }
 }
 
+extension RepoCollectionViewController: ASCollectionDelegate {
+    func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+        return viewModel.since.value != nil
+    }
+}

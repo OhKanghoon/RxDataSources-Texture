@@ -26,7 +26,8 @@ final class CategoryViewController: ASViewController<ASTableNode> {
         }
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
+    
     init() {
         super.init(node: ASTableNode())
         node.delegate = self
@@ -60,8 +61,10 @@ extension CategoryViewController: ASTableDataSource {
 extension CategoryViewController: ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         guard let item = Item(rawValue: indexPath.row) else { return }
+        
         let vc: UIViewController
         let viewModel = RepoViewModel(githubService: GithubService())
+        
         switch item {
         case .table:
             vc = RepoTableViewController(viewModel: viewModel)
