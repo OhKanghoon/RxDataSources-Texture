@@ -12,11 +12,15 @@
 - rx.items(dataSource:protocol<RxASTableDataSourceType, ASTableDataSource>)
 
 ```swift
-let dataSource = RxASTableSectionedReloadDataSource<SectionModel<String, Int>>(configureCell: { (_, _, _, num) -> ASCellNode in
-    let cell = ASTextCellNode()
-    cell.text = "\(num)"
-    return cell
+let dataSource = RxASTableSectionedReloadDataSource<SectionModel<String, Int>>(
+    configureCellBlock: { (_, _, _, num) in
+        return {
+            let cell = ASTextCellNode()
+            cell.text = "\(num)"
+            return cell
+        }
 })
+
 Observable.just([SectionModel(model: "title", items: [1, 2, 3])])
     .bind(to: tableNode.rx.items(dataSource: dataSource))
     .disposed(by: disposeBag)
