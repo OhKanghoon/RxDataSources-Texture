@@ -26,7 +26,7 @@ final class ASTableDataSourceNotSet
         return 0
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         rxAbstractMethod(message: dataSourceNotSet)
     }
 }
@@ -62,9 +62,8 @@ final class RxASTableDataSourceProxy
     }
     
     /// Required datasource method implementation.
-    public func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        return (_requiredMethodsDataSource
-            ?? tableDataSourceNotSet).tableNode!(tableNode, nodeForRowAt: indexPath)
+    public func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return (_requiredMethodsDataSource ?? tableDataSourceNotSet).tableNode!(tableNode, nodeBlockForRowAt: indexPath)
     }
     
     public override func setForwardToDelegate(_ forwardToDelegate: ASTableDataSource?, retainDelegate: Bool) {

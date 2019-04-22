@@ -30,7 +30,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
-        configureCell: @escaping ConfigureCell,
+        configureCellBlock: @escaping ConfigureCellBlock,
         configureSupplementaryNode: ConfigureSupplementaryNode? = nil,
         moveItem: @escaping MoveItem = { _, _, _ in () },
         canMoveItemWith: @escaping CanMoveItemWith = { _, _ in false }
@@ -38,7 +38,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
         self.animationConfiguration = animationConfiguration
         self.decideNodeTransition = decideNodeTransition
         super.init(
-            configureCell: configureCell,
+            configureCellBlock: configureCellBlock,
             configureSupplementaryNode: configureSupplementaryNode,
             moveItem: moveItem,
             canMoveItemWith: canMoveItemWith

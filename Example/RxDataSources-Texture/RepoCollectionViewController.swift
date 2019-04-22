@@ -25,17 +25,17 @@ class RepoCollectionViewController: ASViewController<ASCollectionNode> {
     }()
     
     private let animatedDataSource = RxASCollectionSectionedAnimatedDataSource<MainSection>(
-        configureCell: { _, _, _, sectionItem in
+        configureCellBlock: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(.collection, repo: repoItem)
+                return { RepoCellNode(.collection, repo: repoItem) }
             }
     })
     private let dataSource = RxASCollectionSectionedReloadDataSource<MainSection>(
-        configureCell: { _, _, _, sectionItem in
+        configureCellBlock: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(.collection, repo: repoItem)
+                return { RepoCellNode(.collection, repo: repoItem) }
             }
     })
     
