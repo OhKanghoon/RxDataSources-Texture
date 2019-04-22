@@ -21,18 +21,18 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>
     public typealias I = S.Item
     public typealias Section = S
 
-    public typealias ConfigureCell = (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, I) -> ASCellNode
+    public typealias ConfigureCellBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, I) -> ASCellNodeBlock
     public typealias ConfigureSupplementaryNode = (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNode
     public typealias MoveItem = (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath:IndexPath) -> Void
     public typealias CanMoveItemWith = (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
     
     public init(
-        configureCell: @escaping ConfigureCell,
+        configureCellBlock: @escaping ConfigureCellBlock,
         configureSupplementaryNode: ConfigureSupplementaryNode? = nil,
         moveItem: @escaping MoveItem = { _, _, _ in () },
         canMoveItemWith: @escaping CanMoveItemWith = { _, _ in false }
         ) {
-        self.configureCell = configureCell
+        self.configureCellBlock = configureCellBlock
         self.configureSupplementaryNode = configureSupplementaryNode
         self.moveItem = moveItem
         self.canMoveItemWith = canMoveItemWith
@@ -88,7 +88,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>
         self._sectionModels = sections.map { SectionModelSnapshot(model: $0, items: $0.items) }
     }
     
-    open var configureCell: ConfigureCell {
+    open var configureCellBlock: ConfigureCellBlock {
         didSet {
             #if DEBUG
             ensureNotMutatedAfterBinding()
@@ -130,10 +130,10 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>
         return _sectionModels[section].items.count
     }
     
-    open func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
+    open func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         precondition(indexPath.item < _sectionModels[indexPath.section].items.count)
-        
-        return configureCell(self, collectionNode, indexPath, self[indexPath])
+
+        return configureCellBlock(self, collectionNode, indexPath, self[indexPath])
     }
     
     open func collectionNode(_ collectionNode: ASCollectionNode, nodeForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> ASCellNode {

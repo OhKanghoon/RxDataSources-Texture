@@ -32,7 +32,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
-        configureCell: @escaping ConfigureCell,
+        configureCellBlock: @escaping ConfigureCellBlock,
         titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
@@ -43,7 +43,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
         self.animationConfiguration = animationConfiguration
         self.decideNodeTransition = decideNodeTransition
         super.init(
-            configureCell: configureCell,
+            configureCellBlock: configureCellBlock,
             titleForHeaderInSection: titleForHeaderInSection,
             titleForFooterInSection: titleForFooterInSection,
             canEditRowAtIndexPath: canEditRowAtIndexPath,
@@ -56,7 +56,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
-        configureCell: @escaping ConfigureCell,
+        configureCellBlock: @escaping ConfigureCellBlock,
         titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
@@ -65,7 +65,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
         self.animationConfiguration = animationConfiguration
         self.decideNodeTransition = decideNodeTransition
         super.init(
-            configureCell: configureCell,
+            configureCellBlock: configureCellBlock,
             titleForHeaderInSection: titleForHeaderInSection,
             titleForFooterInSection: titleForFooterInSection,
             canEditRowAtIndexPath: canEditRowAtIndexPath,

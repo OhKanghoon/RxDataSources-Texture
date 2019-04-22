@@ -26,7 +26,7 @@ final class ASCollectionDataSourceNotSet
         return 0
     }
     
-    func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
+    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         rxAbstractMethod(message: dataSourceNotSet)
     }
 }
@@ -62,9 +62,9 @@ final class RxASCollectionDataSourceProxy
     }
     
     /// Required datasource method implementation.
-    public func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
-        return (_requiredMethodsDataSource
-            ?? collectionDataSourceNotSet).collectionNode!(collectionNode, nodeForItemAt: indexPath)
+    
+    public func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return (_requiredMethodsDataSource ?? collectionDataSourceNotSet).collectionNode!(collectionNode, nodeBlockForItemAt: indexPath)
     }
     
     public override func setForwardToDelegate(_ forwardToDelegate: ASCollectionDataSource?, retainDelegate: Bool) {

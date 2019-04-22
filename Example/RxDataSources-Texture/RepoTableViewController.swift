@@ -16,17 +16,17 @@ import RxOptional
 class RepoTableViewController: ASViewController<ASTableNode> {
     
     private let animatedDataSource = RxASTableSectionedAnimatedDataSource<MainSection>(
-        configureCell: { _, _, _, sectionItem in
+        configureCellBlock: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(.table, repo: repoItem)
+                return { RepoCellNode(.table, repo: repoItem) }
             }
     })
     private let dataSource = RxASTableSectionedReloadDataSource<MainSection>(
-        configureCell: { _, _, _, sectionItem in
+        configureCellBlock: { _, _, _, sectionItem in
             switch sectionItem {
             case .repo(let repoItem):
-                return RepoCellNode(.table, repo: repoItem)
+                return { RepoCellNode(.table, repo: repoItem) }
             }
     })
     
