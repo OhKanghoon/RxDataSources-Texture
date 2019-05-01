@@ -55,12 +55,6 @@ extension ASTableNode: SectionedNodeType {
     public func reloadSections(_ sections: [Int], animationStyle: UITableViewRowAnimation) {
         self.reloadSections(indexSet(sections), with: animationStyle)
     }
-    
-    public func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
-        self.performBatch(animated: animationConfiguration.animated, updates: {
-            _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
-        }, completion: nil)
-    }
 }
 
 extension ASCollectionNode: SectionedNodeType {
@@ -96,12 +90,6 @@ extension ASCollectionNode: SectionedNodeType {
     public func reloadSections(_ sections: [Int], animationStyle: UITableViewRowAnimation) {
         self.reloadSections(indexSet(sections))
     }
-    
-    public func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
-        self.performBatch(animated: animationConfiguration.animated, updates: {
-            _performBatchUpdates(self, changes: changes, animationConfiguration: animationConfiguration)
-        }, completion: nil)
-    }
 }
 
 public protocol SectionedNodeType {
@@ -114,40 +102,42 @@ public protocol SectionedNodeType {
     func deleteSections(_ sections: [Int], animationStyle: UITableViewRowAnimation)
     func moveSection(_ from: Int, to: Int)
     func reloadSections(_ sections: [Int], animationStyle: UITableViewRowAnimation)
-    
-    func performBatchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration)
 }
 
-func _performBatchUpdates<N: SectionedNodeType, S>(_ node: N, changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
-    typealias I = S.Item
+extension SectionedNodeType {
     
-    node.deleteSections(changes.deletedSections, animationStyle: animationConfiguration.deleteAnimation)
-    // Updated sections doesn't mean reload entire section, somebody needs to update the section view manually
-    // otherwise all cells will be reloaded for nothing.
-    //view.reloadSections(changes.updatedSections, animationStyle: rowAnimation)
-    node.insertSections(changes.insertedSections, animationStyle: animationConfiguration.insertAnimation)
-    for (from, to) in changes.movedSections {
-        node.moveSection(from, to: to)
-    }
-    
-    node.deleteItemsAtIndexPaths(
-        changes.deletedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
-        animationStyle: animationConfiguration.deleteAnimation
-    )
-    node.insertItemsAtIndexPaths(
-        changes.insertedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
-        animationStyle: animationConfiguration.insertAnimation
-    )
-    node.reloadItemsAtIndexPaths(
-        changes.updatedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
-        animationStyle: animationConfiguration.reloadAnimation
-    )
-    
-    for (from, to) in changes.movedItems {
-        node.moveItemAtIndexPath(
-            IndexPath(item: from.itemIndex, section: from.sectionIndex),
-            to: IndexPath(item: to.itemIndex, section: to.sectionIndex)
+    public func batchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
+        typealias I = S.Item
+        
+        deleteSections(changes.deletedSections, animationStyle: animationConfiguration.deleteAnimation)
+        // Updated sections doesn't mean reload entire section, somebody needs to update the section view manually
+        // otherwise all cells will be reloaded for nothing.
+        //view.reloadSections(changes.updatedSections, animationStyle: rowAnimation)
+        insertSections(changes.insertedSections, animationStyle: animationConfiguration.insertAnimation)
+        for (from, to) in changes.movedSections {
+            moveSection(from, to: to)
+        }
+        
+        deleteItemsAtIndexPaths(
+            changes.deletedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
+            animationStyle: animationConfiguration.deleteAnimation
         )
+        insertItemsAtIndexPaths(
+            changes.insertedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
+            animationStyle: animationConfiguration.insertAnimation
+        )
+        reloadItemsAtIndexPaths(
+            changes.updatedItems.map { IndexPath(item: $0.itemIndex, section: $0.sectionIndex) },
+            animationStyle: animationConfiguration.reloadAnimation
+        )
+        
+        for (from, to) in changes.movedItems {
+            moveItemAtIndexPath(
+                IndexPath(item: from.itemIndex, section: from.sectionIndex),
+                to: IndexPath(item: to.itemIndex, section: to.sectionIndex)
+            )
+        }
     }
+    
 }
 #endif

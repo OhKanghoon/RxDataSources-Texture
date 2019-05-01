@@ -77,37 +77,40 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
     public func tableNode(_ tableNode: ASTableNode, observedEvent: Event<[S]>) {
         Binder(self) { dataSource, newSections in
             #if DEBUG
-            self._dataSourceBound = true
+            dataSource._dataSourceBound = true
             #endif
-            if !self.dataSet {
-                self.dataSet = true
+            if !dataSource.dataSet {
+                dataSource.dataSet = true
                 dataSource.setSections(newSections)
                 tableNode.reloadData()
             }
             else {
-                DispatchQueue.main.async {
-                    let oldSections = dataSource.sectionModels
-                    do {
-                        let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
-                        
-                        switch self.decideNodeTransition(self, tableNode, differences) {
-                        case .animated:
-                            for difference in differences {
+                let oldSections = dataSource.sectionModels
+                do {
+                    let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
+                    
+                    switch dataSource.decideNodeTransition(dataSource, tableNode, differences) {
+                    case .animated:
+                        for difference in differences {
+                            let updateBlock = {
+                                // sections must be set within updateBlock in 'performBatchUpdates'
                                 dataSource.setSections(difference.finalSections)
-                                
-                                tableNode.performBatchUpdates(difference, animationConfiguration: self.animationConfiguration)
+                                tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
                             }
-                        case .reload:
-                            self.setSections(newSections)
-                            tableNode.reloadData()
-                            return
+                            tableNode.performBatch(animated: dataSource.animationConfiguration.animated,
+                                                   updates: updateBlock,
+                                                   completion: nil)
                         }
-                    }
-                    catch let e {
-                        rxDebugFatalError(e)
-                        self.setSections(newSections)
+                    case .reload:
+                        dataSource.setSections(newSections)
                         tableNode.reloadData()
+                        return
                     }
+                }
+                catch let e {
+                    rxDebugFatalError(e)
+                    dataSource.setSections(newSections)
+                    tableNode.reloadData()
                 }
             }
             }.on(observedEvent)

@@ -23,7 +23,7 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<[S]>) {
         Binder(self) { dataSource, element in
             #if DEBUG
-                self._dataSourceBound = true
+                dataSource._dataSourceBound = true
             #endif
             dataSource.setSections(element)
             collectionNode.reloadData()
