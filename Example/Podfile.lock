@@ -24,7 +24,7 @@ PODS:
   - RxAtomic (4.4.1)
   - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
-  - RxDataSources-Texture (1.1.0):
+  - RxDataSources-Texture (1.1.1):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
@@ -75,7 +75,7 @@ SPEC CHECKSUMS:
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
-  RxDataSources-Texture: a3ea28c97dd22d82573b0204393af11880dc275d
+  RxDataSources-Texture: 465ac8f35d0205b6b3538451fae6d41be7940aa0
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
