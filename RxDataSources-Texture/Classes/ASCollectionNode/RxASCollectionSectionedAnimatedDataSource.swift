@@ -43,78 +43,54 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             moveItem: moveItem,
             canMoveItemWith: canMoveItemWith
         )
-        
-        self.partialUpdateEvent
-            // so in case it does produce a crash, it will be after the data has changed
-            .observeOn(MainScheduler.asyncInstance)
-            // Collection Node has issues digesting fast updates, this should
-            // help to alleviate the issues with them.
-            .throttle(0.5, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] event in
-                self?.collectionNode(event.0, throttledObservedEvent: event.1)
-            })
-            .disposed(by: disposeBag)
     }
     
-    // For some inexplicable reason, when doing animated updates first time
-    // it crashes. Still need to figure out that one.
+    // there is no longer limitation to load initial sections with reloadData
+    // but it is kept as a feature everyone got used to
     var dataSet = false
-    
-    private let disposeBag = DisposeBag()
-    
-    // This subject and throttle are here
-    // because collection node has problems processing animated updates fast.
-    // This should somewhat help to alleviate the problem.
-    private let partialUpdateEvent = PublishSubject<(ASCollectionNode, Event<Element>)>()
-    
-    open func collectionNode(_ collectionNode: ASCollectionNode, throttledObservedEvent event: Event<Element>) {
-        Binder(self) { dataSource, newSections in
-            let oldSections = dataSource.sectionModels
-            do {
-                // if view is not in view hierarchy, performing batch updates will crash the app
-                if collectionNode.view.window == nil {
-                    dataSource.setSections(newSections)
-                    collectionNode.reloadData()
-                    return
-                }
-                let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
-                
-                switch self.decideNodeTransition(self, collectionNode, differences) {
-                case .animated:
-                    for difference in differences {
-                        dataSource.setSections(difference.finalSections)
-                        
-                        collectionNode.performBatchUpdates(difference, animationConfiguration: self.animationConfiguration)
-                    }
-                case .reload:
-                    self.setSections(newSections)
-                    collectionNode.reloadData()
-                }
-            }
-            catch let e {
-                #if DEBUG
-                print("Error while binding data animated: \(e)\nFallback to normal `reloadData` behavior.")
-                rxDebugFatalError(e)
-                #endif
-                self.setSections(newSections)
-                collectionNode.reloadData()
-            }
-        }.on(event)
-    }
     
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<Element>) {
         Binder(self) { dataSource, newSections in
             #if DEBUG
-            self._dataSourceBound = true
+            dataSource._dataSourceBound = true
             #endif
-            if !self.dataSet {
-                self.dataSet = true
+            if !dataSource.dataSet {
+                dataSource.dataSet = true
                 dataSource.setSections(newSections)
                 collectionNode.reloadData()
             }
             else {
-                let element = (collectionNode, observedEvent)
-                dataSource.partialUpdateEvent.on(.next(element))
+                let oldSections = dataSource.sectionModels
+                do {
+                    let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
+                    
+                    switch dataSource.decideNodeTransition(dataSource, collectionNode, differences) {
+                    case .animated:
+                        // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
+                        // this is a limitation of Diff tool
+                        for difference in differences {
+                            let updateBlock = {
+                                // sections must be set within updateBlock in 'performBatchUpdates'
+                                dataSource.setSections(difference.finalSections)
+                                
+                                collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                            }
+                            collectionNode.performBatch(animated: dataSource.animationConfiguration.animated,
+                                                        updates: updateBlock,
+                                                        completion: nil)
+                        }
+                        
+                    case .reload:
+                        dataSource.setSections(newSections)
+                        collectionNode.reloadData()
+                        return
+                    }
+                }
+                catch let e {
+                    rxDebugFatalError(e)
+                    dataSource.setSections(newSections)
+                    collectionNode.reloadData()
+                }
             }
         }.on(observedEvent)
     }

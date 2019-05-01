@@ -22,7 +22,7 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>
     open func tableNode(_ tableNode: ASTableNode, observedEvent: Event<Element>) {
         Binder(self) { dataSource, element in
             #if DEBUG
-            self._dataSourceBound = true
+            dataSource._dataSourceBound = true
             #endif
             dataSource.setSections(element)
             tableNode.reloadData()
