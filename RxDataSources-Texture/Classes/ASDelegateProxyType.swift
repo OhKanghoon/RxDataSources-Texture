@@ -17,7 +17,12 @@ extension ObservableType {
         where DelegateProxy.ParentObject: ASDisplayNode
         , DelegateProxy.Delegate: AnyObject {
             let proxy = DelegateProxy.proxy(for: object)
-            let unregisterDelegate = DelegateProxy.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)
+            
+            // disposable needs to be disposed on the main thread
+            let unregisterDelegate = ScheduledDisposable(
+                scheduler: MainScheduler.instance,
+                disposable: DelegateProxy.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)
+            )
             // this is needed to flush any delayed old state (https://github.com/RxSwiftCommunity/RxDataSources/pull/75)
             object.layoutIfNeeded()
             
