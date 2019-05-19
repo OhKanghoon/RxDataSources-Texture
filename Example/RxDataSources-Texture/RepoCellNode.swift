@@ -67,8 +67,8 @@ final class RepoCellNode: ASCellNode {
                                                             titleNode])
         switch type {
         case .collection:
-            contentStackSpec.style.width = ASDimension.init(unit: .points,
-                                                            value: constrainedSize.max.width / 2 - 1)
+            contentStackSpec.style.width = .init(unit: .points,
+                                                 value: constrainedSize.max.width / 2 - 1)
         default: break
         }
         

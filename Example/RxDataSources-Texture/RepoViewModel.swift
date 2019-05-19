@@ -9,7 +9,7 @@
 import Foundation
 import AsyncDisplayKit
 import RxSwift
-import RxCocoa
+import RxRelay
 
 final class RepoViewModel {
     

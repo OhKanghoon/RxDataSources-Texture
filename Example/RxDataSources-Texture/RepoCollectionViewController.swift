@@ -87,7 +87,6 @@ class RepoCollectionViewController: ASViewController<ASDisplayNode> {
             .disposed(by: disposeBag)
         
         collectionNode.rx.willBeginBatchFetch
-            .asObservable()
             .do(onNext: { [weak self] context in
                 self?.batchContext = context
             }).map { _ in return }
@@ -98,7 +97,8 @@ class RepoCollectionViewController: ASViewController<ASDisplayNode> {
     // MARK: - LayoutSpec
     
     func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: node.safeAreaInsets, child: collectionNode)
+        return ASInsetLayoutSpec(insets: node.safeAreaInsets,
+                                 child: collectionNode)
     }
 }
 
