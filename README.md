@@ -33,11 +33,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Swift 4.2
-- [RxSwift](https://github.com/ReactiveX/RxSwift) (~> 4.0)
-- [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/master/RxCocoa) (~> 4.0)
-- Differentiator (~> 3.0)
-- [Texture](https://github.com/TextureGroup/Texture) (~> 2.7)
+- Swift 5
+- [RxSwift](https://github.com/ReactiveX/RxSwift) (~> 5.0)
+- [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/master/RxCocoa) (~> 5.0)
+- Differentiator (~> 4.0)
+- [Texture](https://github.com/TextureGroup/Texture) (>= 2.7)
 
 ## Installation
 
@@ -45,7 +45,7 @@ RxDataSources-Texture is available through [CocoaPods](https://cocoapods.org). T
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'RxDataSources-Texture', '~> 1.1.2'
+pod 'RxDataSources-Texture', '~> 1.2.0'
 ```
 
 ## Author
