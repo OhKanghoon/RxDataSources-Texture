@@ -29,7 +29,7 @@ extension Reactive where Base: ASCollectionNode {
         O: ObservableType>
         (dataSource: DataSource)
         -> (_ source: O)
-        -> Disposable where DataSource.Element == O.E {
+        -> Disposable where DataSource.Element == O.Element {
             return { source in
                 return source.subscribeProxyDataSource(ofObject: self.base, dataSource: dataSource, retainDataSource: true) { [weak collectionNode = self.base] (_: RxASCollectionDataSourceProxy, event) -> Void in
                     guard let collectionNode = collectionNode else {

@@ -37,7 +37,7 @@ extension Reactive where Base: ASTableNode {
         (dataSource: DataSource)
         -> (_ source: O)
         -> Disposable
-        where DataSource.Element == O.E {
+        where DataSource.Element == O.Element {
             return { source in
                 // Strong reference is needed because data source is in use until result subscription is disposed
                 return source.subscribeProxyDataSource(ofObject: self.base, dataSource: dataSource as ASTableDataSource, retainDataSource: true) { [weak tableNode = self.base] (_: RxASTableDataSourceProxy, event) -> Void in
