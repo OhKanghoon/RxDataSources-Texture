@@ -5,18 +5,18 @@ cache: cocoapods
 podfile: Example/Podfile
 
 before_install:
-- gem install cocoapods
-- pod install --repo-update --project-directory=Example
+  - gem install cocoapods
+  - pod install --repo-update --project-directory=Example
 
 before_script:
   - set -o pipefail
 
 script:
-- xcodebuild clean build test
-     -workspace Example/RxDataSources-Texture.xcworkspace 
-     -scheme RxDataSources-Texture-Example 
-     -sdk iphonesimulator
-     -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2'
-     -configuration Debug
-     -enableCodeCoverage YES
-     CODE_SIGNING_REQUIRED=NO | xcpretty
+  - xcodebuild clean build test
+    -workspace Example/RxDataSources-Texture.xcworkspace
+    -scheme RxDataSources-Texture-Example
+    -sdk iphonesimulator
+    -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2'
+    -configuration Debug
+    -enableCodeCoverage YES
+    CODE_SIGNING_REQUIRED=NO | xcpretty

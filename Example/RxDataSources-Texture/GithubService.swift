@@ -25,11 +25,9 @@ final class GithubService: GithubServiceProtocol {
             .validate(statusCode: 200..<300)
             .responseData()
             .debug()
-            .map { $0.1 }
-            .flatMap { data -> Observable<[Repo]> in
+            .map { (_, data) -> [Repo] in
                 let decoder = JSONDecoder()
-                let object = try decoder.decode([Repo].self, from: data)
-                return Observable.just(object)
+                return try decoder.decode([Repo].self, from: data)
             }.asSingle()
     }
 }
