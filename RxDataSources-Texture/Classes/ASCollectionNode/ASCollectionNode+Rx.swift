@@ -57,8 +57,8 @@ extension Reactive where Base: ASCollectionNode {
      
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var dataSource: DelegateProxy<ASCollectionNode, ASCollectionDelegate> {
-        return RxASCollectionDelegateProxy.proxy(for: base)
+    public var dataSource: DelegateProxy<ASCollectionNode, ASCollectionDataSource> {
+        return RxASCollectionDataSourceProxy.proxy(for: base)
     }
     
     /**
