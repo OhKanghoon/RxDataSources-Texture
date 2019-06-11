@@ -35,6 +35,56 @@ open class RxASCollectionDelegateProxy
     public static func registerKnownImplementations() {
         self.register { RxASCollectionDelegateProxy(collectionNode: $0) }
     }
+
+    fileprivate var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
+    fileprivate var _contentOffsetPublishSubject: PublishSubject<()>?
+
+    /// Optimized version used for observing content offset changes.
+    internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
+        if let subject = _contentOffsetBehaviorSubject {
+            return subject
+        }
+
+        let subject = BehaviorSubject<CGPoint>(value: self.collectionNode?.contentOffset ?? CGPoint.zero)
+        _contentOffsetBehaviorSubject = subject
+
+        return subject
+    }
+
+    /// Optimized version used for observing content offset changes.
+    internal var contentOffsetPublishSubject: PublishSubject<()> {
+        if let subject = _contentOffsetPublishSubject {
+            return subject
+        }
+
+        let subject = PublishSubject<()>()
+        _contentOffsetPublishSubject = subject
+
+        return subject
+    }
+
+    // MARK: delegate methods
+
+    /// For more information take a look at `DelegateProxyType`.
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let subject = _contentOffsetBehaviorSubject {
+            subject.on(.next(scrollView.contentOffset))
+        }
+        if let subject = _contentOffsetPublishSubject {
+            subject.on(.next(()))
+        }
+        self._forwardToDelegate?.scrollViewDidScroll?(scrollView)
+    }
+
+    deinit {
+        if let subject = _contentOffsetBehaviorSubject {
+            subject.on(.completed)
+        }
+
+        if let subject = _contentOffsetPublishSubject {
+            subject.on(.completed)
+        }
+    }
 }
 
 #endif
