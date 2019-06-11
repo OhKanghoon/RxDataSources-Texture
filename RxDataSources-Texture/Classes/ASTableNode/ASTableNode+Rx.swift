@@ -99,7 +99,63 @@ extension Reactive where Base: ASTableNode {
             return RxASTableDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
     }
     
-    // events
+    /// Reactive wrapper for `contentOffset`.
+    public var contentOffset: ControlProperty<CGPoint> {
+        let proxy = RxASTableDelegateProxy.proxy(for: base)
+
+        let bindingObserver = Binder(self.base) { tableNode, contentOffset in
+            tableNode.contentOffset = contentOffset
+        }
+
+        return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewDidScroll`
+    public var didScroll: ControlEvent<Void> {
+        let source = RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject
+        return ControlEvent(events: source)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewWillBeginDecelerating`
+    public var willBeginDecelerating: ControlEvent<Void> {
+        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewDidEndDecelerating`
+    public var didEndDecelerating: ControlEvent<Void> {
+        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDecelerating(_:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewWillBeginDragging`
+    public var willBeginDragging: ControlEvent<Void> {
+        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDragging(_:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)`
+    public var willEndDragging: ControlEvent<WillEndDraggingEvent> {
+        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
+            .map { value -> WillEndDraggingEvent in
+                let velocity = try castOrThrow(CGPoint.self, value[1])
+                let targetContentOffsetValue = try castOrThrow(NSValue.self, value[2])
+
+                guard let rawPointer = targetContentOffsetValue.pointerValue else { throw RxCocoaError.unknown }
+                let typedPointer = rawPointer.bindMemory(to: CGPoint.self, capacity: MemoryLayout<CGPoint>.size)
+
+                return (velocity, typedPointer)
+        }
+        return ControlEvent(events: source)
+    }
+
+    /// Reactive wrapper for delegate method `scrollViewDidEndDragging(_:willDecelerate:)`
+    public var didEndDragging: ControlEvent<Bool> {
+        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
+            return try castOrThrow(Bool.self, value[1])
+        }
+        return ControlEvent(events: source)
+    }
     
     /**
      Reactive wrapper for `delegate` message `tableNode:didSelectRowAtIndexPath:`.
