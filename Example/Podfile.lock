@@ -24,7 +24,7 @@ PODS:
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxDataSources-Texture (1.2.3):
+  - RxDataSources-Texture (1.2.4):
     - Differentiator (~> 4.0)
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -88,7 +88,7 @@ SPEC CHECKSUMS:
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxDataSources-Texture: 9aa2199ef0d397ebdfd7d15a9c6088e37e533d7f
+  RxDataSources-Texture: 604c050c9cbeea346ceb30c76e06751ad741330e
   RxOptional: 9904e2219d59260c3c171273d475b2126de187e8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
