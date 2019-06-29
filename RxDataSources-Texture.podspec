@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'RxDataSources-Texture'
-    s.version          = '1.1.4'
+    s.version          = '1.1.5'
     s.summary          = 'RxDataSources With Texture'
     s.description      = <<-DESC
     This is a collection of reactive data sources for ASTableNode and ASCollectionNode
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     
     s.ios.deployment_target = '9.0'
     s.requires_arc = true
-    
+    s.swift_version = '4.2'
     s.source_files = 'RxDataSources-Texture/Classes/**/*'
     
     s.dependency 'RxSwift', '~> 4.0'
