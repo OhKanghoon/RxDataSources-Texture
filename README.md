@@ -46,7 +46,7 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 # Swift 5
-pod 'RxDataSources-Texture', '~> 1.2.4'
+pod 'RxDataSources-Texture', '~> 1.2.5'
 
 # Swift 4.2
 pod 'RxDataSources-Texture', '~> 1.1.5'
