@@ -21,7 +21,8 @@ open class RxASCollectionDelegateProxy
     : DelegateProxy<ASCollectionNode, ASCollectionDelegate>
     , DelegateProxyType
     , ASCollectionDelegate
-    , ASCollectionDelegateFlowLayout {
+    , ASCollectionDelegateFlowLayout
+    , UICollectionViewDelegateFlowLayout {
     
     /// Typed parent object.
     public weak private(set) var collectionNode: ASCollectionNode?
