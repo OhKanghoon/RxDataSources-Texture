@@ -68,17 +68,17 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                     case .animated:
                         // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
                         // this is a limitation of Diff tool
-                        collectionNode.performBatch(
-                            animated: dataSource.animationConfiguration.animated,
-                            updates: {
-                                for difference in differences {
-                                    dataSource.setSections(difference.finalSections)
-
-                                    collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
-                                }
-                            },
-                            completion: nil
-                        )
+                        for difference in differences {
+                            let updateBlock = {
+                                // sections must be set within updateBlock in 'performBatchUpdates'
+                                dataSource.setSections(difference.finalSections)
+                                
+                                collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                            }
+                            collectionNode.performBatch(animated: dataSource.animationConfiguration.animated,
+                                                        updates: updateBlock,
+                                                        completion: nil)
+                        }
                         
                     case .reload:
                         dataSource.setSections(newSections)
