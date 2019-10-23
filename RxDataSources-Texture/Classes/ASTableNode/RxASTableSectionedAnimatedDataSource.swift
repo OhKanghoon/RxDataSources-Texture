@@ -91,16 +91,17 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>
                     
                     switch dataSource.decideNodeTransition(dataSource, tableNode, differences) {
                     case .animated:
-                        for difference in differences {
-                            let updateBlock = {
-                                // sections must be set within updateBlock in 'performBatchUpdates'
-                                dataSource.setSections(difference.finalSections)
-                                tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
-                            }
-                            tableNode.performBatch(animated: dataSource.animationConfiguration.animated,
-                                                   updates: updateBlock,
-                                                   completion: nil)
-                        }
+                        tableNode.performBatch(
+                            animated: dataSource.animationConfiguration.animated,
+                            updates: {
+                                for difference in differences {
+                                    dataSource.setSections(difference.finalSections)
+
+                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                }
+                            },
+                            completion: nil
+                        )
                     case .reload:
                         dataSource.setSections(newSections)
                         tableNode.reloadData()
