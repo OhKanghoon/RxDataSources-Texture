@@ -135,9 +135,9 @@ extension Reactive where Base: ASTableNode {
     }
 
     /// Reactive wrapper for delegate method `scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)`
-    public var willEndDragging: ControlEvent<WillEndDraggingEvent> {
+    public var willEndDragging: ControlEvent<Reactive<UIScrollView>.WillEndDraggingEvent> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
-            .map { value -> WillEndDraggingEvent in
+            .map { value -> Reactive<UIScrollView>.WillEndDraggingEvent in
                 let velocity = try castOrThrow(CGPoint.self, value[1])
                 let targetContentOffsetValue = try castOrThrow(NSValue.self, value[2])
 
