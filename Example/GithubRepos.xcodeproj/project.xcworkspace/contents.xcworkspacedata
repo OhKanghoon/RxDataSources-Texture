@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:RxDataSources-Texture.xcodeproj">
+      location = "self:/Users/kanghoon/RxDataSources-Texture/Example/GithubUsers/GithubRepos.xcodeproj">
    </FileRef>
 </Workspace>

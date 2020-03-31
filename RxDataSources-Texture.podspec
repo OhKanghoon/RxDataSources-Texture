@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.swift_version    = '5.0'
     
-    s.source_files = 'RxDataSources-Texture/Classes/**/*'
+    s.source_files = 'Sources/**/*.{swift,h,m}'
     
     s.dependency 'RxSwift', '~> 5.0'
     s.dependency 'RxCocoa', '~> 5.0'
