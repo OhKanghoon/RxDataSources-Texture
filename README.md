@@ -48,6 +48,13 @@ it, simply add the following line to your Podfile:
 pod 'RxDataSources-Texture', '~> 1.2.6'
 ```
 
+## Development
+
+```console
+$ make project
+$ open RxDataSources-Texture.xcworkspace
+```
+
 ## Author
 
 OhKanghoon, ggaa96@naver.com
