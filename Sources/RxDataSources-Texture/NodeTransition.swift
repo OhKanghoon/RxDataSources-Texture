@@ -7,8 +7,8 @@
 
 /// Transition between two view states
 public enum NodeTransition {
-    /// animated transition
-    case animated
-    /// refresh view without animations
-    case reload
+  /// animated transition
+  case animated
+  /// refresh view without animations
+  case reload
 }
