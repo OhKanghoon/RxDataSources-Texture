@@ -70,9 +70,11 @@ extension Reactive where Base: ASCollectionNode {
    - parameter dataSource: Data source object.
    - returns: Disposable object that can be used to unbind the data source.
    */
-  public func setDataSource(_ dataSource: ASCollectionDataSource)
-    -> Disposable {
-      return RxASCollectionDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
+  public func setDataSource(_ dataSource: ASCollectionDataSource) -> Disposable {
+    return ScheduledDisposable(
+      scheduler: MainScheduler.instance,
+      disposable: RxASCollectionDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
+    )
   }
 
   /**
