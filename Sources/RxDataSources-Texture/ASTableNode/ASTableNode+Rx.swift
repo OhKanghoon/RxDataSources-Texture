@@ -80,9 +80,11 @@ extension Reactive where Base: ASTableNode {
    - parameter dataSource: Data source object.
    - returns: Disposable object that can be used to unbind the data source.
    */
-  public func setDataSource(_ dataSource: ASTableDataSource)
-    -> Disposable {
-      return RxASTableDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
+  public func setDataSource(_ dataSource: ASTableDataSource) -> Disposable {
+    return ScheduledDisposable(
+      scheduler: MainScheduler.instance,
+      disposable: RxASTableDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
+    )
   }
 
   /**
@@ -94,9 +96,11 @@ extension Reactive where Base: ASTableNode {
    - parameter delegate: Delegate object
    - returns: Disposable object that can be used to unbind the delegate.
    */
-  public func setDelegate(_ delegate: ASTableDelegate)
-    -> Disposable {
-      return RxASTableDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+  public func setDelegate(_ delegate: ASTableDelegate) -> Disposable {
+    return ScheduledDisposable(
+      scheduler: MainScheduler.instance,
+      disposable: RxASTableDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+    )
   }
 
   /// Reactive wrapper for `contentOffset`.
