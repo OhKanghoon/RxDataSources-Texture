@@ -84,9 +84,11 @@ extension Reactive where Base: ASCollectionNode {
    - parameter delegate: Delegate object
    - returns: Disposable object that can be used to unbind the delegate.
    */
-  public func setDelegate(_ delegate: ASCollectionDelegate)
-    -> Disposable {
-      return RxASCollectionDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+  public func setDelegate(_ delegate: ASCollectionDelegate) -> Disposable {
+    return ScheduledDisposable(
+      scheduler: MainScheduler.instance,
+      disposable: RxASCollectionDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: self.base)
+    )
   }
 
   /// Reactive wrapper for `contentOffset`.
