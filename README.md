@@ -46,7 +46,7 @@ RxDataSources-Texture is available through [CocoaPods](https://cocoapods.org). T
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'RxDataSources-Texture', '~> 1.2.7'
+pod 'RxDataSources-Texture', '~> 1.2.8'
 ```
 
 ## Development
