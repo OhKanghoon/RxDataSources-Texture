@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-final class CategoryViewController: ASViewController<ASTableNode> {
+final class CategoryViewController: ASDKViewController<ASTableNode> {
 
   enum Item: Int, CaseIterable {
     case table
@@ -28,7 +28,7 @@ final class CategoryViewController: ASViewController<ASTableNode> {
 
   // MARK: - Initialization
 
-  init() {
+  override init() {
     super.init(node: ASTableNode())
     node.delegate = self
     node.dataSource = self

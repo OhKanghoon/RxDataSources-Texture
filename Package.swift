@@ -19,4 +19,3 @@ let package = Package(
         .testTarget(name: "RxDataSources-TextureTests", dependencies: ["RxDataSources-Texture"]),
     ]
 )
-

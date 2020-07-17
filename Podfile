@@ -3,7 +3,7 @@ inhibit_all_warnings!
 
 target 'RxDataSources-Texture' do
   use_frameworks!
-  pod 'Texture', '~> 2.8'
+  pod 'Texture', '~> 3.0'
 
   target 'RxDataSources-TextureTests' do
   end

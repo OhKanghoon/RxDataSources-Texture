@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class RepoCollectionViewController: ASViewController<ASDisplayNode> {
+class RepoCollectionViewController: ASDKViewController<ASDisplayNode> {
 
   // MARK: - Properties
 
