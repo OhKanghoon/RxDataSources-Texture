@@ -17,15 +17,15 @@ Pod::Spec.new do |s|
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'OhKanghoon' => 'ggaa96@naver.com' }
     s.source           = { :git => 'https://github.com/OhKanghoon/RxDataSources-Texture.git', :tag => s.version.to_s }
-    
+
     s.ios.deployment_target = '9.0'
     s.requires_arc = true
     s.swift_version    = '5.0'
-    
+
     s.source_files = 'Sources/**/*.{swift,h,m}'
-    
+
     s.dependency 'RxSwift', '~> 5.0'
     s.dependency 'RxCocoa', '~> 5.0'
     s.dependency 'Differentiator', '~> 4.0'
-    s.dependency 'Texture', '>= 2.7'
+    s.dependency 'Texture', '~> 3.0'
 end
