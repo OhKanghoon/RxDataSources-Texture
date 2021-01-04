@@ -81,6 +81,10 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>
   }
 
   open func model(at indexPath: IndexPath) throws -> Any {
+    guard indexPath.section < self._sectionModels.count,
+          indexPath.item < self._sectionModels[indexPath.section].items.count else {
+      throw RxDataSourceTextureError.outOfBounds(indexPath: indexPath)
+    }
     return self[indexPath]
   }
 
