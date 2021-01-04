@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'RxDataSources-Texture'
-    s.version          = '1.3.0'
+    s.version          = '1.4.0'
     s.summary          = 'RxDataSources With Texture'
     s.description      = <<-DESC
     This is a collection of reactive data sources for ASTableNode and ASCollectionNode
