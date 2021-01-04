@@ -10,6 +10,10 @@ import RxCocoa
 
 @_exported import Differentiator
 
+enum RxDataSourceTextureError: Error {
+  case outOfBounds(indexPath: IndexPath)
+}
+
 // MARK: Error binding policies
 
 func bindingError(_ error: Swift.Error) {

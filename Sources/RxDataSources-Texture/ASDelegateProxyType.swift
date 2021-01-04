@@ -27,14 +27,14 @@ extension ObservableType {
       object.layoutIfNeeded()
 
       let subscription = self.asObservable()
-        .observeOn(MainScheduler())
-        .catchError { error in
+        .observe(on: MainScheduler())
+        .catch { error in
           bindingError(error)
           return Observable.empty()
         }
         // source can never end, otherwise it would release the subscriber, and deallocate the data source
         .concat(Observable.never())
-        .takeUntil(object.rx.deallocated)
+        .take(until: object.rx.deallocated)
         .subscribe { [weak object] (event: Event<Element>) in
 
           if let object = object {

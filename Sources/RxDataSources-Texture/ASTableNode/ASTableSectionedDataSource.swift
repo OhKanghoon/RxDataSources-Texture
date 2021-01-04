@@ -100,16 +100,20 @@ open class ASTableSectionedDataSource<S: SectionModelType>
 
   open subscript(indexPath: IndexPath) -> I {
     get {
-      return self._sectionModels[indexPath.section].items[indexPath.item]
+      return self._sectionModels[indexPath.section].items[indexPath.row]
     }
     set(item) {
       var section = self._sectionModels[indexPath.section]
-      section.items[indexPath.item] = item
+      section.items[indexPath.row] = item
       self._sectionModels[indexPath.section] = section
     }
   }
 
   open func model(at indexPath: IndexPath) throws -> Any {
+    guard indexPath.section < self._sectionModels.count,
+          indexPath.row < self._sectionModels[indexPath.section].items.count else {
+      throw RxDataSourceTextureError.outOfBounds(indexPath: indexPath)
+    }
     return self[indexPath]
   }
 
@@ -186,7 +190,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>
   }
 
   public func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-    precondition(indexPath.item < _sectionModels[indexPath.section].items.count)
+    precondition(indexPath.row < _sectionModels[indexPath.section].items.count)
 
     return configureCellBlock(self, tableNode, indexPath, self[indexPath])
   }
